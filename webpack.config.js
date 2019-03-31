@@ -1,6 +1,6 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const UglifyJs = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -8,9 +8,6 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'assets/dist'),
         filename: '[name].bundle.js',
-    },
-    optimization: {
-        minimizer: [new UglifyJsPlugin()],
     },
     node: {
         fs: 'empty'
@@ -29,16 +26,29 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: "babel-loader"
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        plugins: ['@babel/plugin-proposal-object-rest-spread']
+                    }
+                }
             }
-
         ]
     },
     plugins: [
         new MonacoWebpackPlugin({
             languages: ['css', 'scss'],
         }),
-     ],
+    ],
+    optimization: {
+        minimizer: [
+            new UglifyJs({
+                parallel: true,
+                cache: true
+            }),
+        ],
+    },
 };

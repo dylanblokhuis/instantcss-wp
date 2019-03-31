@@ -5,7 +5,7 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
 import postcss from 'postcss';
 import sass from 'sass.js';
 import autoprefixer from 'autoprefixer';
-import minify from './minify';
+import csso from 'postcss-csso';
 
 class Editor {
     constructor() {
@@ -45,11 +45,12 @@ class Editor {
     }
 
     compileCSS() {
+        let autoprefixerOptions = { browsers: ['last 2 version', 'ie >= 9', 'iOS >= 7', 'android >= 4.1'] };
+
         let unsavedCSS = this.monacoEditor.getValue();
         if (this.preprocessor !== 'scss') {
             if (this.ifMinify == 'on') {
-                console.log('Minify is on, minifying css');
-                postcss([ autoprefixer(), minify ]).process(unsavedCSS)
+                postcss([ autoprefixer(autoprefixerOptions), csso() ]).process(unsavedCSS)
                     .then(result => {
                         this.saveCSS(unsavedCSS, result.css);
                     })
@@ -57,8 +58,6 @@ class Editor {
                         Editor.setError(error.toString());
                     });
             } else {
-                console.log('Minify is off, not minifying css');
-
                 postcss([ autoprefixer() ]).process(unsavedCSS)
                     .then(result => {
                         this.saveCSS(unsavedCSS, result.css);
@@ -74,7 +73,7 @@ class Editor {
                 } else {
                     if (this.ifMinify == 'on') {
                         console.log('Minify is on, minifying css');
-                        postcss([ autoprefixer(), minify ]).process(result.text)
+                        postcss([ autoprefixer(), csso() ]).process(result.text)
                             .then(result => {
                                 this.saveCSS(unsavedCSS, result.css);
                             });
