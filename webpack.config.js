@@ -47,7 +47,6 @@ module.exports = {
         minimizer: [
             new UglifyJs({
                 parallel: true,
-                cache: true
             }),
         ],
     },
