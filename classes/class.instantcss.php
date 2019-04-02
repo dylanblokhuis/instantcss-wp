@@ -17,6 +17,7 @@ class InstantCSS
 
         // Options
         add_option( 'icss_css', '', false, true );
+        add_option( 'icss_version', '', false, true );
         add_option( 'icss_postcss', '', false, true );
         add_option( 'icss_lang', 'css', false, true );
         add_option( 'icss_theme', 'vs', false, true );
@@ -24,7 +25,7 @@ class InstantCSS
 		add_option( 'icss_minify', 'off', false, true );
 
         // Add saved option to script tag
-        add_action( 'wp_head', array( $this, 'icss_get_css' ), 5 );
+        add_action( 'init', array( $this, 'icss_get_css' ) );
     }
 
     /**
@@ -70,11 +71,28 @@ class InstantCSS
     public function icss_get_css()
     {
         $savedCSS = get_option( 'icss_postcss' );
-        $styles = stripslashes($savedCSS);
+        $styles = stripslashes( $savedCSS );
+
         if ( isset( $styles ) ) {
-            echo '<style type="text/css" id="instant-css">'. $styles .'</style>';
+	        $cssFile = fopen( dirname(__DIR__) . '/public/custom.css', "w" );
+	        if ( isset( $cssFile ) ) {
+		        if ( fwrite( $cssFile, $styles ) )
+			        add_action( 'wp_enqueue_scripts', array( $this, 'icss_enqueue_css' ) );
+	        } else {
+		        echo '<style type="text/css" id="instant-css">'. $styles .'</style>';
+	        }
         }
     }
+
+	/*
+	 * Enqueues the custom css file created by the user
+	 */
+	public function icss_enqueue_css()
+	{
+		$version = get_option( 'icss_version' );
+		if (isset ( $version ) )
+			wp_enqueue_style( 'icss-custom-styles', plugins_url( 'public/custom.css', dirname(__FILE__) ), array(), $version );
+	}
 
 	/**
 	 * Conditional scripts enqueuing

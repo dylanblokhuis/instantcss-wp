@@ -47,14 +47,18 @@ class InstantCSS_Ajax
 
 		if ( isset( $css ) ) {
 			update_option( 'icss_css',  $css, true );
+			update_option( 'icss_version', time(), true );
 		} else {
 			update_option( 'icss_css',  '', true );
+			update_option( 'icss_version', time(), true );
 		}
 
 		if ( isset( $postcss ) ) {
 			update_option( 'icss_postcss',  $postcss, true );
+			update_option( 'icss_version', time(), true );
 		} else {
 			update_option( 'icss_postcss',  '', true );
+			update_option( 'icss_version', time(), true );
 		}
 
 		echo "Saved CSS";

@@ -45,6 +45,7 @@ class Editor {
     }
 
     compileCSS() {
+
         let autoprefixerOptions = { browsers: ['last 2 version', 'ie >= 9', 'iOS >= 7', 'android >= 4.1'] };
 
         let unsavedCSS = this.monacoEditor.getValue();
@@ -106,7 +107,6 @@ class Editor {
     }
 
     saveCSS(rawCSS, compiledCSS) {
-        jQuery('.save-button').addClass('is-busy').text('Saving..');
         Editor.setError();
         let data = {
             'action' : 'icss_save_css',
@@ -260,6 +260,7 @@ class Editor {
         let self = this;
 
         jQuery('.save-button').click(function () {
+            jQuery('.save-button').addClass('is-busy').text('Saving..');
             self.compileCSS();
         });
         jQuery('#selectTheme').change(function () {
