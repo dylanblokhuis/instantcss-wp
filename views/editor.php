@@ -42,11 +42,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Don't allow direct access
         <div class="icss-options">
             <button class="save-button button button-primary button-large">Save</button>
         </div>
-       <!-- <div class="icss-errors">
-            <div class="icss-error-wrapper">
-                <code class="icss-error-container"></code>
-            </div>
-        </div>-->
     </div>
 
 </div>

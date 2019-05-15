@@ -26,6 +26,11 @@ class Editor {
         this.loadPreprocessor();
         this.loadMinify();
         this.jQueryEditor();
+        if (wordpress.is_customizer === 'active') {
+            jQuery('iframe').load(() => {
+                this.customizer();
+            })
+        }
     }
 
     editor() {
@@ -45,7 +50,6 @@ class Editor {
     }
 
     compileCSS() {
-
         let autoprefixerOptions = { browsers: ['last 2 version', 'ie >= 9', 'iOS >= 7', 'android >= 4.1'] };
 
         let unsavedCSS = this.monacoEditor.getValue();
@@ -108,6 +112,11 @@ class Editor {
 
     saveCSS(rawCSS, compiledCSS) {
         Editor.setError();
+
+        if (wordpress.is_customizer === 'active') {
+            this.setLivePreviewCSS(compiledCSS)
+        }
+
         let data = {
             'action' : 'icss_save_css',
             'css' : rawCSS,
@@ -121,6 +130,7 @@ class Editor {
             success: (response) => {
                 console.log(response);
                 jQuery('.save-button').removeClass('is-busy').text('Saved!');
+                jQuery('.customizer-save-button').removeClass('is-busy').text('Saved!');
                 window.isSaved = true;
             }
         })
@@ -241,26 +251,44 @@ class Editor {
                 error = "Line " + line + ': ' + error
             }
             jQuery('.icss-error-block').fadeIn();
-            jQuery('.save-button').text('Oops!').addClass('button-danger');
+            jQuery('.save-button').text('Oops!').addClass('button-danger').removeClass('is-busy');
+            jQuery('.customizer-save-button').text('Oops!').addClass('button-danger').removeClass('is-busy');
             jQuery('.icss-error-container').text(error);
         } else {
             window.error = null;
             jQuery('.icss-error-block').fadeOut();
-            jQuery('.save-button').text('Save').removeClass('button-danger');
+            jQuery('.save-button').text('Save').removeClass('button-danger').removeClass('is-busy');
+            jQuery('.customizer-save-button').text('Save').removeClass('button-danger').removeClass('is-busy');
         }
 
     }
-
-
-
-
 
     // jQuery actions
     jQueryEditor() {
         let self = this;
 
+        /* When user presses CTRL + S */
+        jQuery(window).bind('keydown', function(event) {
+            if (event.ctrlKey || event.metaKey) {
+                switch (String.fromCharCode(event.which).toLowerCase()) {
+                case 's':
+                    event.preventDefault();
+                    jQuery('.save-button').addClass('is-busy').text('Saving..');
+                    jQuery('.customizer-save-button').addClass('is-busy').text('Saving..');
+                    self.compileCSS()
+                    break;
+                }
+            }
+        });
+        jQuery('.icss-open-options').click(function () {
+            jQuery('.icss-options-menu').slideToggle()
+        })
         jQuery('.save-button').click(function () {
             jQuery('.save-button').addClass('is-busy').text('Saving..');
+            self.compileCSS();
+        });
+        jQuery('.customizer-save-button').click(function () {
+            jQuery('.customizer-save-button').addClass('is-busy').text('Saving..');
             self.compileCSS();
         });
         jQuery('#selectTheme').change(function () {
@@ -274,7 +302,18 @@ class Editor {
         })
     }
 
+    customizer() {
+        let head = jQuery('.icss-frame').contents().find('head')
+        head.append('<style>#wpadminbar { display: none; } html { margin-top: unset !important; }</style>')
+        head.append('<style id="icss-live-preview"></style>')
+        jQuery('.icss-frame').css('opacity', 1)
+    }
 
+    setLivePreviewCSS(compiledCSS) {
+        let head = jQuery('.icss-frame').contents().find('head')
+        head.find('#icss-live-preview').text(compiledCSS)
+        head.find('#icss-custom-styles-css').remove()
+    }
 }
 
 new Editor();
