@@ -103,6 +103,8 @@ class InstantCSS
             'ajax_url' => admin_url('admin-ajax.php'),
             'is_customizer' => 'active'
         ));
+
+        wp_enqueue_style( 'icss-customizer', plugins_url('assets/css/customizer.css', dirname(__FILE__)), array(), '1.1.0' );
     }
 
     /**
