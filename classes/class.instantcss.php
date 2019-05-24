@@ -87,8 +87,8 @@ class InstantCSS
      */
     public function icss_admin_dependencies()
     {
-        wp_enqueue_style( 'icss-styles', plugins_url('assets/css/style.css', dirname(__FILE__)), array(), '1.1.0' );
-        wp_enqueue_script( 'monaco-editor', plugins_url('assets/dist/main.bundle.js', dirname(__FILE__)), array(), '1.1.0', true );
+        wp_enqueue_style( 'icss-styles', plugins_url('assets/css/style.css', dirname(__FILE__)), array(), '1.1.1' );
+        wp_enqueue_script( 'monaco-editor', plugins_url('assets/dist/main.bundle.js', dirname(__FILE__)), array(), '1.1.1', true );
         wp_localize_script( 'monaco-editor', 'wordpress', array(
         	'plugins_url' => plugins_url('/', dirname(__FILE__)),
             'ajax_url' => admin_url('admin-ajax.php'),
@@ -104,7 +104,7 @@ class InstantCSS
             'is_customizer' => 'active'
         ));
 
-        wp_enqueue_style( 'icss-customizer', plugins_url('assets/css/customizer.css', dirname(__FILE__)), array(), '1.1.0' );
+        wp_enqueue_style( 'icss-customizer', plugins_url('assets/css/customizer.css', dirname(__FILE__)), array(), '1.1.1' );
     }
 
     /**

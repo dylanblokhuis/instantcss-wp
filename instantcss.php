@@ -2,8 +2,8 @@
 
 /**
  * Plugin Name: Instant CSS
- * Description: Use the power of Visual Studio Code in WordPress
- * Version:     1.1.0
+ * Description: Write your styles beautifully with the power of Visual Studio Code
+ * Version:     1.1.1
  * Author:      Dylan Blokhuis
  * Author URI:  https://github.com/dylanblokhuis
  * License:     GPL-3.0
