@@ -2,11 +2,11 @@
 Contributors: dylanblokhuis
 Tags: css, scss, postcss, sass, custom css, instant css, stylesheet, styles, style.css, editor, visual studio code, vscode, monaco, monaco editor, live preview, live editing, live editor, live css, customizer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=69ZRVBGGJ6QJL&source=url
-Tested up to: 5.2
+Tested up to: 5.2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Use the power of Visual Studio Code in WordPress
+Write your styles beautifully with the power of Visual Studio Code
 
 == Description ==
 Use the power of Visual Studio Code in WordPress to write your CSS or SCSS
@@ -24,6 +24,9 @@ You can also choose to use SCSS, more info about SCSS here: https://sass-lang.co
 * Live editor updating styles on save and have the browser update simultaneously
 
 == Changelog ==
+
+= 1.1.1 =
+* Fixed iframe reload issue
 
 = 1.1.0 =
 * New feature: Live editor. You can now write your css and watch the browser update whenever you save.
