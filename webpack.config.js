@@ -1,6 +1,5 @@
 const path = require('path');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const UglifyJs = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -42,12 +41,5 @@ module.exports = {
         new MonacoWebpackPlugin({
             languages: ['css', 'scss'],
         }),
-    ],
-    optimization: {
-        minimizer: [
-            new UglifyJs({
-                parallel: true,
-            }),
-        ],
-    },
+    ]
 };

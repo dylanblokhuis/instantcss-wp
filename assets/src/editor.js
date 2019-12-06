@@ -65,7 +65,7 @@ class Editor {
 
 		let plugins
         
-		if (this.minify == 'on') {
+		if (this.ifMinify === 'on') {
 			plugins = [
 				autoprefixer(autoprefixerOptions),
 				csso()

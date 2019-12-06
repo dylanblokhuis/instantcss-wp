@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Instant CSS
  * Description: Write your styles beautifully with the power of Visual Studio Code
- * Version:     1.1.1
+ * Version:     1.1.3
  * Author:      Dylan Blokhuis
  * Author URI:  https://github.com/dylanblokhuis
  * License:     GPL-3.0
