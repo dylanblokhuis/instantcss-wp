@@ -25,6 +25,10 @@ module.exports = {
                 ]
             },
             {
+                test: /\.ttf$/,
+                use: ['file-loader']
+            },
+            {
                 test: /\.m?js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
