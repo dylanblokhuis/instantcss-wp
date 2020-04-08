@@ -3,3 +3,4 @@ dist/
 public/custom.css
 yarn.lock
 yarn-error.log
+.DS_Store
