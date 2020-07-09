@@ -64,7 +64,7 @@ class Editor {
 		}
 
 		let plugins
-        
+
 		if (this.ifMinify === 'on') {
 			plugins = [
 				autoprefixer(autoprefixerOptions),
@@ -100,7 +100,7 @@ class Editor {
 
 	loadCSS() {
 		let data = {
-			'action' : 'icss_get_css',
+			'action': 'icss_get_css',
 		}
 
 		jQuery.ajax({
@@ -119,16 +119,16 @@ class Editor {
 		}
 
 		let data = {
-			'action' : 'icss_save_css',
-			'css' : rawCSS,
-			'postcss' : compiledCSS
+			'action': 'icss_save_css',
+			'css': rawCSS,
+			'postcss': compiledCSS
 		}
 
 		jQuery.ajax({
-			url : this.ajaxUrl,
+			url: this.ajaxUrl,
 			type: 'post',
 			data: data,
-			success: () => {       
+			success: () => {
 				jQuery('.save-button').removeClass('is-busy').text('Saved!')
 				jQuery('.customizer-save-button').removeClass('is-busy').text('Saved!')
 				window.isSaved = true
@@ -138,7 +138,7 @@ class Editor {
 
 	loadTheme() {
 		let data = {
-			'action' : 'icss_get_theme',
+			'action': 'icss_get_theme',
 		}
 
 		jQuery.ajax({
@@ -150,16 +150,16 @@ class Editor {
 				jQuery('#selectTheme').val(response)
 			},
 		})
-    }
-    
+	}
+
 
 
 	changeTheme(theme) {
 		monaco.editor.setTheme(theme)
-		
+
 		let data = {
-			'action' : 'icss_save_theme',
-			'theme' : theme
+			'action': 'icss_save_theme',
+			'theme': theme
 		}
 
 		jQuery.ajax({
@@ -178,8 +178,8 @@ class Editor {
 		console.log('Language changed to', preprocessor)
 
 		let data = {
-			'action' : 'icss_save_preprocessor',
-			'preprocessor' : preprocessor
+			'action': 'icss_save_preprocessor',
+			'preprocessor': preprocessor
 		}
 
 		jQuery.ajax({
@@ -195,7 +195,7 @@ class Editor {
 
 	loadPreprocessor() {
 		let data = {
-			'action' : 'icss_get_preprocessor',
+			'action': 'icss_get_preprocessor',
 		}
 
 		jQuery.ajax({
@@ -216,8 +216,8 @@ class Editor {
 		this.ifMinify = value
 
 		let data = {
-			'action' : 'icss_save_minify',
-			'minify' : value
+			'action': 'icss_save_minify',
+			'minify': value
 		}
 
 		jQuery.ajax({
@@ -232,7 +232,7 @@ class Editor {
 
 	loadMinify() {
 		let data = {
-			'action' : 'icss_get_minify',
+			'action': 'icss_get_minify',
 		}
 
 		jQuery.ajax({
@@ -271,13 +271,13 @@ class Editor {
 		let self = this
 
 		/* When user presses CTRL + S */
-		jQuery(window).bind('keydown', function(event) {
+		jQuery(window).bind('keydown', function (event) {
 			if (event.ctrlKey || event.metaKey) {
 				switch (String.fromCharCode(event.which).toLowerCase()) {
-				case 's':
-					event.preventDefault()
-					self.compileCSS()
-					break
+					case 's':
+						event.preventDefault()
+						self.compileCSS()
+						break
 				}
 			}
 		})
