@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const Border = styled.div`
   display: inline-block;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: ${props => props.size};
+  height: ${props => props.size};
   vertical-align: text-bottom;
   border: .25em solid currentColor;
   border-right-color: transparent;
@@ -25,9 +25,9 @@ const Inside = styled.span`
   border: 0;
 `;
 
-function Spinner() {
+function Spinner({ size = "1.5rem" }) {
   return (
-    <Border>
+    <Border size={size}>
       <Inside />
     </Border>
   );

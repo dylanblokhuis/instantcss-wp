@@ -2,6 +2,7 @@
 
 namespace InstantCSS\Endpoints;
 
+use ScssPhp\ScssPhp\Compiler;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use WP_REST_Request;
@@ -12,10 +13,12 @@ class File
      * @var string
      */
     private $scss_folder;
+    private $css_file;
 
     public function __construct()
     {
         $this->scss_folder = plugin_dir_path( dirname(__DIR__)) . "public/scss/";
+        $this->css_file = plugin_dir_path( dirname(__DIR__)) . "public/css/custom.css";
     }
 
     /**
@@ -38,7 +41,7 @@ class File
         $path = $this->scss_folder . $request->get_param('path');
         $content = file_get_contents($path);
 
-        if (!$content) {
+        if ($content === false) {
             return new \WP_REST_Response("No file found", 400);
         }
 
@@ -71,9 +74,14 @@ class File
         $path = $request->get_param('path');
         $content = $request->get_param('content');
 
-        if ($this->updateFile($path, $content)) {
+        try {
+            $filesystem = new Filesystem();
+            $filesystem->dumpFile($this->scss_folder . $path, $content);
+
+            $this->compile();
+
             return rest_ensure_response('File updated successfully');
-        } else {
+        } catch (IOException $e) {
             return new \WP_REST_Response("Failed to update file", 500);
         }
     }
@@ -95,6 +103,30 @@ class File
     }
 
     /**
+     * @return bool
+     */
+    private function compile()
+    {
+        $scss = file_get_contents($this->scss_folder . "main.scss");
+
+        if ($scss === false) {
+            return false;
+        }
+
+        try {
+            $compiler = new Compiler();
+            $compiler->setImportPaths($this->scss_folder);
+            $css = $compiler->compile($scss);
+
+            $filesystem = new Filesystem();
+            $filesystem->dumpFile($this->css_file, $css);
+            return true;
+        } catch (\Exception $e) {
+            dd($e->getTraceAsString());
+        }
+    }
+
+    /**
      * @param $name
      * @param string $content
      * @return bool
@@ -111,22 +143,6 @@ class File
         }
     }
 
-    /**
-     * @param $name
-     * @param string $content
-     * @return bool
-     */
-    private function updateFile($name, $content)
-    {
-        try {
-            $filesystem = new Filesystem();
-            $filesystem->dumpFile($this->scss_folder . $name, $content);
-
-            return true;
-        } catch (IOException $e) {
-            return false;
-        }
-    }
 
     /**
      * @param $folder_path

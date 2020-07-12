@@ -19,6 +19,7 @@
         "files": ["src/Helpers/Functions.php"]
     },
     "require": {
-        "symfony/filesystem": "^5.1"
+        "symfony/filesystem": "^5.1",
+        "scssphp/scssphp": "^1.1"
     }
 }

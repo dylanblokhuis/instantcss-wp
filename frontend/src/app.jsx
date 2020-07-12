@@ -1,9 +1,13 @@
-import { h, render } from 'preact';
+__webpack_public_path__ = window.icss_params.plugins_url + 'frontend/dist/'
+
+import { h, render, createContext } from 'preact';
+import { useState } from "preact/hooks";
 import styled, { createGlobalStyle } from "styled-components";
 
 import Sidebar from "./sidebar.jsx";
-import './utilities.css';
 import Theme from "./components/theme.jsx";
+import Editor from "./editor.jsx";
+import './utilities.css';
 
 const HideWordpressElements = createGlobalStyle`
   #wpwrap, #wpcontent, #wpbody, #wpbody-content, #___icss {
@@ -38,24 +42,35 @@ const SidebarWrapper = styled.div`
 
 const Main = styled.main`
   flex: 1;
-  background: green;
 `;
 
+export const AppContext = createContext({
+  file: "",
+  setFile: () => null
+});
+
 function App() {
+  const [file, setFile] = useState("");
+
   return (
     <Theme>
-      <Wrapper>
-        <HideWordpressElements />
+      <AppContext.Provider value={{
+        file,
+        setFile
+      }}>
+        <Wrapper>
+          <HideWordpressElements />
 
-        <SidebarWrapper>
-          <div className="py-2 px-3 bg-dark font-weight-bold">Files</div>
+          <SidebarWrapper>
+            <div className="py-2 px-3  font-weight-bold">Files</div>
 
-          <Sidebar />
-        </SidebarWrapper>
-        <Main>
-          Hey
-        </Main>
-      </Wrapper>
+            <Sidebar />
+          </SidebarWrapper>
+          <Main>
+            <Editor />
+          </Main>
+        </Wrapper>
+      </AppContext.Provider>
     </Theme>
   )
 }

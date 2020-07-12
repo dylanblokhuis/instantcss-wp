@@ -5,6 +5,7 @@ export const theme = {
   dark: '#181818',
   darker: '#0f0f0f',
   light: '#fff',
+  primary: 'rgb(14,99,156)'
 }
 
 const Global = createGlobalStyle`

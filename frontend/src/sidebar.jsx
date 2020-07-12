@@ -23,13 +23,9 @@ function Sidebar() {
     )
   }
 
-  return (
-    <div>
-      {files.map(file => (
-        <File key={file.name} file={file} />
-      ))}
-    </div>
-  );
+  return files.map(file => (
+    <File key={file.name} file={file} />
+  ))
 }
 
 export default Sidebar;
