@@ -3,13 +3,21 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './assets/src/editor.js',
+    entry: './frontend/src/app.js',
     output: {
-        path: path.join(__dirname, 'assets/dist'),
+        path: path.join(__dirname, 'frontend/dist'),
         filename: '[name].bundle.js',
     },
     node: {
         fs: 'empty'
+    },
+    resolve: {
+        alias: {
+            "react": "preact/compat",
+            "react-dom/test-utils": "preact/test-utils",
+            "react-dom": "preact/compat",
+            // Must be below test-utils
+        },
     },
     module: {
         rules: [
@@ -35,7 +43,15 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env'],
-                        plugins: ['@babel/plugin-proposal-object-rest-spread']
+                        plugins: [
+                            '@babel/plugin-proposal-object-rest-spread',
+                            ["@babel/plugin-transform-react-jsx",
+                                {
+                                    "pragma": "h",
+                                    "pragmaFrag": "Fragment"
+                                }
+                            ]
+                        ]
                     }
                 }
             }
