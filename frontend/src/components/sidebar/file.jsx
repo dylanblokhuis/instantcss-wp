@@ -3,7 +3,8 @@ import { useContext, useState } from "preact/hooks";
 import styled, { css } from "styled-components";
 
 import Icon from "../icon.jsx";
-import folderIconOpen from "../../icons/folder-open.svg";
+import folderOpenIcon from "../../icons/folder-open.svg";
+import folderIcon from "../../icons/folder.svg";
 import sassIcon from "../../icons/sass.svg";
 import { AppContext } from "../../app.jsx";
 
@@ -36,7 +37,7 @@ const File = ({ file, depth = 0, show = true }) => {
     <div style={{ display: show ? 'block' : 'none'}}>
       <Row onClick={() => handleClick(file)} depth={depth} className="d-flex align-items-center">
         {file.is_dir ? (
-          <Icon className="mr-2 py-1" svg={folderIconOpen} />
+          <Icon className="mr-2 py-1" svg={isOpen ? folderOpenIcon : folderIcon} />
         ) : (
           <Icon className="mr-2 py-1" svg={sassIcon} />
         )}
