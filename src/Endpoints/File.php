@@ -53,9 +53,9 @@ class File
      */
 	public function create($request)
     {
-        $name = $request->get_param('name');
+        $path = $request->get_param('path');
 
-        if ($this->createScssFile($name)) {
+        if ($this->createScssFile($path)) {
             return rest_ensure_response('File created successfully');
         } else {
             return new \WP_REST_Response("Failed to create file", 500);
@@ -68,10 +68,10 @@ class File
      */
     public function update($request)
     {
-        $name = $request->get_param('name');
+        $path = $request->get_param('path');
         $content = $request->get_param('content');
 
-        if ($this->updateFile($name, $content)) {
+        if ($this->updateFile($path, $content)) {
             return rest_ensure_response('File updated successfully');
         } else {
             return new \WP_REST_Response("Failed to update file", 500);
@@ -138,6 +138,11 @@ class File
         $tree = array();
         foreach ($iterator as $file) {
             if ($file->isDot()) {
+                continue;
+            }
+
+            // files like .gitkeep, .DS_Store
+            if ($file->getFilename()[0] === '.') {
                 continue;
             }
 
