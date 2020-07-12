@@ -93,10 +93,11 @@ class Plugin
     {
         // wp_enqueue_style( 'icss-styles', plugins_url('assets/css/style.css', dirname(__FILE__)), array(), ICSS_VERSION );
         wp_enqueue_script('icss-js', plugins_url('frontend/dist/main.bundle.js', dirname(__FILE__)), array(), ICSS_VERSION, true);
-        wp_localize_script('icss-js', 'wordpress', array(
+        wp_localize_script('icss-js', 'icss_params', array(
             'plugins_url' => plugins_url('/', dirname(__FILE__)),
             'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('wp_rest')
+            'nonce' => wp_create_nonce('wp_rest'),
+            'rest_url' => rest_url('instantcss/v1')
         ));
     }
 }

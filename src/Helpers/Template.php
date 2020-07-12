@@ -26,7 +26,7 @@ class Template
      */
     public static function icss_locate_template($template_name)
     {
-        $default_path = plugin_dir_path(__DIR__) . 'templates/'; // Path to the template folder
+        $default_path = plugin_dir_path(dirname(__DIR__)) . 'templates/'; // Path to the template folder
         $template = $default_path . $template_name;
 
         return apply_filters('locate_template', $template, $template_name, $default_path);

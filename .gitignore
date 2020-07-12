@@ -1,10 +1,10 @@
 node_modules
-dist/
 public/scss
 public/css
 yarn.lock
 yarn-error.log
 .DS_Store
+frontend/dist
 
 /vendor/
 !.gitkeep

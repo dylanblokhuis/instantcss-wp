@@ -3,7 +3,7 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './frontend/src/app.js',
+    entry: './frontend/src/app.jsx',
     output: {
         path: path.join(__dirname, 'frontend/dist'),
         filename: '[name].bundle.js',
@@ -37,7 +37,7 @@ module.exports = {
                 use: ['file-loader']
             },
             {
-                test: /\.m?js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
@@ -54,6 +54,10 @@ module.exports = {
                         ]
                     }
                 }
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader'
             }
         ]
     },

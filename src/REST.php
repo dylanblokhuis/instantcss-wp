@@ -23,7 +23,7 @@ class REST
 
         register_rest_route(self::$namespace, '/files', array(
             'methods' => 'GET',
-            // 'permission_callback' => 'is_admin_callback',
+            'permission_callback' => array($this, 'is_admin_callback'),
             'callback' => array($endpoint, 'get_all'),
         ));
 
@@ -90,6 +90,6 @@ class REST
 
     public function is_admin_callback()
     {
-        return current_user_can('editor') || current_user_can('administrator');
+        return current_user_can('manage_options');
     }
 }
