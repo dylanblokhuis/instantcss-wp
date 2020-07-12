@@ -182,6 +182,11 @@ class File
             $tree[] = $meta;
         }
 
+        sort($tree);
+        usort($tree, function ($a, $b) {
+            return !$a['is_dir'] - !$b['is_dir'];
+        });
+
         return $tree;
     }
 }
