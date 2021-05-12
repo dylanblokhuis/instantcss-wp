@@ -7,7 +7,7 @@
     "cross-env": "^7.0.2",
     "monaco-editor": "^0.20.0",
     "monaco-editor-webpack-plugin": "^1.9.0",
-    "postcss": "^7.0.27",
+    "postcss": "^8.2.10",
     "postcss-csso": "^4.0.0",
     "postcss-loader": "^3.0.0",
     "precss": "^4.0.0",
