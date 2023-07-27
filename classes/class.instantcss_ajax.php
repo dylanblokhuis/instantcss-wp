@@ -26,6 +26,11 @@ class InstantCSS_Ajax
 	 */
 	public function icss_ajax_get_css()
 	{
+		if ( !$this->has_permissions()) {
+			echo "You do not have permission to save CSS";
+			wp_die();
+		}
+
 		$savedCSS = get_option( 'icss_css' );
 		$styles = stripslashes($savedCSS);
 		if ( isset( $styles ) ) {
@@ -42,6 +47,11 @@ class InstantCSS_Ajax
 	 */
 	public function icss_ajax_save_css()
 	{
+		if ( !$this->has_permissions()) {
+			echo "You do not have permission to save CSS";
+			wp_die();
+		}
+
 		$css = $_POST['css'];
 		$postcss = $_POST['postcss'];
 
@@ -71,6 +81,11 @@ class InstantCSS_Ajax
 	 */
 	public function icss_ajax_save_theme()
 	{
+		if ( !$this->has_permissions()) {
+			echo "You do not have permission to save theme";
+			wp_die();
+		}
+
 		$newTheme = $_POST['theme'];
 
 		if ( isset( $newTheme ) ) {
@@ -87,6 +102,11 @@ class InstantCSS_Ajax
 	 */
 	public function icss_ajax_get_theme()
 	{
+		if ( !$this->has_permissions()) {
+			echo "You do not have permission to save theme";
+			wp_die();
+		}
+		
 		$theme = get_option( 'icss_theme' );
 
 		if ( isset( $theme ) ) {
@@ -103,6 +123,12 @@ class InstantCSS_Ajax
 	 */
 	public function icss_ajax_save_preprocessor()
 	{
+		
+		if ( !$this->has_permissions()) {
+			echo "You do not have permission to save preprocessor";
+			wp_die();
+		}
+
 		$newPreprocessor = $_POST['preprocessor'];
 
 		if ( isset( $newPreprocessor ) ) {
@@ -122,6 +148,11 @@ class InstantCSS_Ajax
 	 */
 	public function icss_ajax_get_preprocessor()
 	{
+		if ( !$this->has_permissions()) {
+			echo "You do not have permission to get the preprocessor";
+			wp_die();
+		}
+
 		$preprocessor = get_option( 'icss_preprocessor' );
 
 		if ( isset( $preprocessor ) ) {
@@ -138,6 +169,11 @@ class InstantCSS_Ajax
 	 */
 	public function icss_ajax_save_minify()
 	{
+		if ( !$this->has_permissions()) {
+			echo "You do not get to save the minification option";
+			wp_die();
+		}
+
 		$minifyOption = $_POST['minify'];
 
 		if ( isset( $minifyOption ) ) {
@@ -156,6 +192,11 @@ class InstantCSS_Ajax
 	 */
 	public function icss_ajax_get_minify()
 	{
+		if ( !$this->has_permissions()) {
+			echo "You do not have the permission to get the minification option";
+			wp_die();
+		}
+
 		$minify = get_option( 'icss_minify' );
 
 		if ( isset( $minify ) ) {
@@ -165,5 +206,12 @@ class InstantCSS_Ajax
 		}
 
 		wp_die();
+	}
+
+	private function has_permissions() {
+		if ( !current_user_can('manage_options') ) {
+			return false;
+		}
+		return true;
 	}
 }
