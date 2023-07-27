@@ -24,6 +24,9 @@ You can also choose to use SCSS, more info about SCSS here: https://sass-lang.co
 * Live editor updating styles on save and have the browser update simultaneously
 
 == Changelog ==
+= 1.1.5 =
+* Fixed Broken Access Control
+
 = 1.1.4 =
 * Upgraded monaco editor to the latest version, fixes scrolling in some browsers.
 
