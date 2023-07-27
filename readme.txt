@@ -2,7 +2,7 @@
 Contributors: dylanblokhuis
 Tags: css, scss, postcss, sass, custom css, instant css, stylesheet, styles, style.css, editor, visual studio code, vscode, monaco, monaco editor, live preview, live editing, live editor, live css, customizer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=69ZRVBGGJ6QJL&source=url
-Tested up to: 5.4
+Tested up to: 6.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
