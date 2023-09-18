@@ -24,6 +24,9 @@ You can also choose to use SCSS, more info about SCSS here: https://sass-lang.co
 * Live editor updating styles on save and have the browser update simultaneously
 
 == Changelog ==
+= 1.2.1 =
+* Test WordPress 6.3
+
 = 1.2.0 =
 * Fixed CSRF vulnerability and updated monaco editor to the latest version
 
